@@ -4,7 +4,7 @@ import { methodGet } from "../../../utils/methodsResponse";
 import { llamada } from "../../../utils/nuevo";
 
 const page = () => {
-  const apiGet = "http://main2.qa-servi.com:8080/api/v2/posts?postId=1";
+  const apiGet = `/posts?postId=1`;
 
   const handleGet = async () => {
     const data = await llamada(apiGet);
