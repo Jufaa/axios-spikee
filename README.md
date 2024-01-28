@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **AXIOS - SPIKE**
 
-## Getting Started
+### WHAT IS AXIOS
 
-First, run the development server:
+Axios is a promise-based HTTP Client for node.js and the browser. It is isomorphic. On the server-side it uses the native node.js http module, while on the client (browser) it uses XMLHttpRequests.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### WHAT IS HTTPS
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+HTTP (Hypertext Transfer Protocol) is the protocol used for data transmission on the web. HTTPS is the secure version of HTTP, employing SSL/TLS encryption to protect information between the browser and server, adding a layer of security to web communication.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### WHAT IS A METHOD AND WHATS METHODS EXIST
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+There are several methods but the most common are usually GET, POST, DELETE, PATCH, PUT
 
-## Learn More
+### WHAT METHODS ARE WE GOING TO USE?
 
-To learn more about Next.js, take a look at the following resources:
+We are going to use mostly GET PUT and POST but axios offers us a great variety in addition to these
+[![Methods Axios](Methods Axios "Methods Axios")]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### HOW TO MAKE A CALL TO AN EXTERNAL ENDPOINT
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### HOW ARE WE GOING TO MAKE THE CALL TO THE SERVI ENDPOINTS?
