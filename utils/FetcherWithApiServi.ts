@@ -8,9 +8,12 @@ export const FetcherWithApiServi = async (
   params?: any
 ): Promise<any> => {
   const newUrl = `http://${process.env.V2_MAIN_SERVICE_URL}${url}`;
-  const token =
-    "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjIsInN1YiI6Imx1Y2EiLCJpYXQiOjE3MDYzOTYzMDIsImV4cCI6MTcwNjQ4MjcwMn0.EoOlk6p2yCjssfmtg29OJS5XC20tLPkbtQ5c4358jr5S2LNeg77bB8j2MDvW3k4xhHmvagyNe6y-IpOln7QPcg";
 
+  // This is hardcoded  ought is automatic with nookies o something like that
+  const token =
+    "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjIsInN1YiI6Imx1Y2EiLCJpYXQiOjE3MDY1NDE1NzgsImV4cCI6MTcwNjYyNzk3OH0.epRLchd3kDjB2QjQdI4uhU0RxbTuEy1GBNc1xXpczriNzGMxCZ31C-mqIRcf3C8CczMWLrRQVcUnfhRRoMk5BA";
+
+  // Can agg one header more for images
   const options = bearer
     ? {
         headers: {
@@ -39,14 +42,15 @@ export const FetcherWithApiServi = async (
       throw new Error(`Unsupported HTTP method: ${method}`);
     }
 
-    console.log(response);
-
     return response.data;
   } catch (error: any) {
+    // This can be greatly improved to be more specific.
+
     if (axios.isAxiosError(error)) {
-      console.error("Axios Error in Fetcher:", error.message);
+      console.error("Axios Error in Fetcher:", error);
       if (error.response) {
         console.error("Server Response Data:", error.response.data);
+        return error.response.data;
       }
     } else {
       console.error("Non-Axios Error in Fetcher:", error.message);

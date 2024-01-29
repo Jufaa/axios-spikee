@@ -19,4 +19,16 @@ We are going to use mostly GET PUT and POST but axios offers us a great variety 
 
 ### HOW TO MAKE A CALL TO AN EXTERNAL ENDPOINT
 
+Common calls have no problem in axios, since there should be no problems with the endpoints, or the use client, however in our case it is a problem, which is why we will use another solution.
+Examples of calls in axios with this endpoint: https://jsonplaceholder.typicode.com/
+Endpoints that we will use to test : IMAGE
+
 ### HOW ARE WE GOING TO MAKE THE CALL TO THE SERVI ENDPOINTS?
+
+We will use these functions IMAGE:
+It will have some parameters, endpoint, method to use, if you are going to wanto to use the token, and if the endpoint requires a body, it can be sent to it.
+Example: IMAGE
+
+Why do i use server in FetcherWithApiServi? Since if we do not use a use server, we have complications with cors, and the endpoints since the process.env would come as undefined if we do not use this, a use server is that the code that is in the file will be executed on the server side.
+
+Why do we use this way? If you review v1, the services and API part in the files is 90 percent practically the same, and if we take this on a large scale it is detrimental, since it is complicated to maintain, that is why we created this way, since it is going to be easier in the long term.

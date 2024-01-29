@@ -1,10 +1,17 @@
 "use client";
+// Example of use of the FetcherWithApiServi function
+// ************************************************************************************************************************************************************************************************
+// ****************This code can be further factored, it is a practical example so that everything remains in a file to be able to understand it better.****************
+// ************************************************************************************************************************************************************************************************
+//**************************************************************************************************************************************************************************************************
 
 import React from "react";
 import { FetcherWithApiServi } from "../../../utils/FetcherWithApiServi";
-interface TypeDataLogin {
-  username: string;
-  password: string;
+
+// This types they sould be in a file types.ts
+interface TypeReviews {
+  sellerId: number;
+  comment: string;
 }
 
 interface TypeDataPut {
@@ -13,6 +20,7 @@ interface TypeDataPut {
 }
 
 const Page = () => {
+  // This endpoint they could be improved, since it allows you to create the endpoints before sending them, in case you need  parameters
   const urlApiGet = `/posts?postId=1`;
 
   const handleGet = async () => {
@@ -25,14 +33,14 @@ const Page = () => {
   };
 
   const handlePostLogin = async () => {
-    const body: TypeDataLogin = {
-      username: "luca",
-      password: "mypassword",
+    const body: TypeReviews = {
+      sellerId: 0,
+      comment: "Nice!",
     };
 
-    const urlApiPost = "/login";
+    const urlApiPost = "/reviews/user";
     try {
-      const data = await FetcherWithApiServi(urlApiPost, "POST", false, body);
+      const data = await FetcherWithApiServi(urlApiPost, "POST", true, body);
       console.log(data);
     } catch (error) {
       console.error("Error in handleGet:", error);
