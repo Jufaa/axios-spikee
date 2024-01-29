@@ -37,7 +37,8 @@ It can be improved as the errors can be more specific.
 # 6️⃣ How are we goint to make the call to the servi endpoints❓ 🤔
 
 We will use these functions:
-![Captura desde 2024-01-29 19-20-31](https://github.com/Jufaa/axios-spikee/assets/97070491/01bf9445-28ba-484d-a695-98469e8a434a)
+![Captura desde 2024-01-29 19-30-44](https://github.com/Jufaa/axios-spikee/assets/97070491/33d25d92-fae8-4464-970e-882a95809152)
+
 ![Captura desde 2024-01-29 19-20-59](https://github.com/Jufaa/axios-spikee/assets/97070491/d8863058-516c-47ed-96eb-d378e9eaccfb)
 
 It will have some parameters, endpoint, method to use, if you are going to wanto to use the token, and if the endpoint requires a body, it can be sent to it.
