@@ -12,13 +12,19 @@ HTTP (Hypertext Transfer Protocol) is the protocol used for data transmission on
 
 # 3️⃣ What is a method and whats methods exist❓ 🗒️
 
+A "method" refers to a specific action or function that you can perform to interact with the backend in a simpler and more structured way.
+
 There are several methods but the most common are usually GET, POST, DELETE, PATCH, PUT
-![Captura desde 2024-01-29 19-15-59](https://github.com/Jufaa/axios-spikee/assets/97070491/900a9c30-8034-4645-b55c-58d02d28fd61)
+
 
 
 # 4️⃣ What methods are we going to use❓ 
 
 We are going to use mostly GET PUT and POST but axios offers us a great variety in addition to these
+<br/>
+Methods offered by axios:
+<br/>
+![Captura desde 2024-01-29 19-15-59](https://github.com/Jufaa/axios-spikee/assets/97070491/900a9c30-8034-4645-b55c-58d02d28fd61)
 
 # 5️⃣ How to make a call to an external endpoint❓ 🤔
 
