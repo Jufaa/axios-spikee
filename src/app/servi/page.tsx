@@ -1,12 +1,12 @@
-"use client";
+'use client';
 // Example of use of the FetcherWithApiServi function
 // ************************************************************************************************************************************************************************************************
 // ****************This code can be further factored, it is a practical example so that everything remains in a file to be able to understand it better.****************
 // ************************************************************************************************************************************************************************************************
 //**************************************************************************************************************************************************************************************************
 
-import React from "react";
-import { FetcherWithApiServi } from "../../../utils/FetcherWithApiServi";
+import React from 'react';
+import { FetcherWithApiServi } from '../../../utils/FetcherWithApiServi';
 
 // This types they sould be in a file types.ts
 interface TypeReviews {
@@ -25,36 +25,50 @@ const Page = () => {
 
   const handleGet = async () => {
     try {
-      const data = await FetcherWithApiServi(urlApiGet, "GET", true, null);
+      const data = await FetcherWithApiServi({
+        url: urlApiGet,
+        method: 'GET',
+        bearer: true,
+      });
       console.log(data);
     } catch (error) {
-      console.error("Error in handleGet:", error);
+      console.error('Error in handleGet:', error);
     }
   };
 
   const handlePostLogin = async () => {
     const body: TypeReviews = {
       sellerId: 0,
-      comment: "Nice!",
+      comment: 'Nice!',
     };
 
-    const urlApiPost = "/reviews/user";
+    const urlApiPost = '/reviews/user';
     try {
-      const data = await FetcherWithApiServi(urlApiPost, "POST", true, body);
+      const data = await FetcherWithApiServi({
+        url: urlApiPost,
+        method: 'POST',
+        bearer: true,
+        params: body,
+      });
       console.log(data);
     } catch (error) {
-      console.error("Error in handleGet:", error);
+      console.error('Error in handleGet:', error);
     }
   };
 
   const handlePut = async (body: TypeDataPut) => {
-    const urlPut = "/orders/inbox";
+    const urlPut = '/orders/inbox';
 
     try {
-      const data = await FetcherWithApiServi(urlPut, "PUT", true, body);
+      const data = await FetcherWithApiServi({
+        url: urlPut,
+        method: 'PUT',
+        bearer: true,
+        params: body,
+      });
       console.log(data);
     } catch (error) {
-      console.error("Error in handleGet:", error);
+      console.error('Error in handleGet:', error);
     }
   };
 
@@ -62,7 +76,7 @@ const Page = () => {
     <>
       <button onClick={() => handleGet()}>Get post id 1</button>
       <button onClick={() => handlePostLogin()}>Login POST</button>
-      <button onClick={() => handlePut({ orderId: 1, message: "hi" })}>
+      <button onClick={() => handlePut({ orderId: 1, message: 'hi' })}>
         Order Inbox PUT
       </button>
     </>
