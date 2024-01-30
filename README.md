@@ -10,7 +10,7 @@ Axios is a promise-based HTTP Client for node.js and the browser. It is isomorph
 
 HTTP (Hypertext Transfer Protocol) is the protocol used for data transmission on the web. HTTPS is the secure version of HTTP, employing SSL/TLS encryption to protect information between the browser and server, adding a layer of security to web communication.
 
-# 3️⃣ What is a method and whats methods exist❓ 🗒️
+# 3️⃣ What is a method and what methods exist❓ 🗒️
 
 A "method" refers to a specific action or function that you can perform to interact with the backend in a simpler and more structured way.
 
@@ -20,14 +20,14 @@ There are several methods but the most common are usually GET, POST, DELETE, PAT
 
 # 4️⃣ What methods are we going to use❓ 
 
-We are going to use mostly GET PUT and POST but axios offers us a great variety in addition to these
+We are going to use mostly GET PUT and POST but axios offers us a great variety 
 <br/>
 Methods offered by axios:
 <br/>
 ![Captura desde 2024-01-29 19-15-59](https://github.com/Jufaa/axios-spikee/assets/97070491/900a9c30-8034-4645-b55c-58d02d28fd61)
 
 
-# 5️⃣ How are we goint to make the call to the servi endpoints❓ 🤔
+# 5️⃣ How are we going to make the call to the servi endpoints❓ 🤔
 
 We will use these functions / methods:
 
@@ -69,9 +69,9 @@ export const putFetch = async (
   }
 };
 ```
-This would be the use of these functions, to make it more generic
+This would be the use of these functions, to make it more generic.
 
-Basically the functions will obtain the endpoint, a body (if necessary) and a header, which can be the ones mentioned above.
+Basically the functions will obtain the endpoint, a body (if necessary) and a header, which be the types mentioned later
 ```
   // GET CASE
   const handleGet = async () => {
