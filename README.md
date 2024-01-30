@@ -26,35 +26,98 @@ Methods offered by axios:
 <br/>
 ![Captura desde 2024-01-29 19-15-59](https://github.com/Jufaa/axios-spikee/assets/97070491/900a9c30-8034-4645-b55c-58d02d28fd61)
 
-# 5️⃣ How to make a call to an external endpoint❓ 🤔
 
-Common calls have no problem in axios, since there should be no problems with the endpoints, or the use client, however in our case it is a problem, which is why we will use another solution.
-Examples of calls in axios with this endpoint: https://jsonplaceholder.typicode.com/
-Endpoints that we will use to test
+# 5️⃣ How are we goint to make the call to the servi endpoints❓ 🤔
 
+We will use these functions / methods:
 
-![Captura desde 2024-01-29 19-18-03](https://github.com/Jufaa/axios-spikee/assets/97070491/daf87cb9-564d-4b1c-a728-b78120960bf7)
-![Captura desde 2024-01-29 19-18-32](https://github.com/Jufaa/axios-spikee/assets/97070491/c698aace-4c79-4bec-9245-ff07d434f638)
+```
+export const postFetch = async (
+  url: string,
+  params?: any,
+  headers?: any
+): Promise<any> => {
+  const apiUrl = `${DEFAULT_URL}${url}`;
 
+  try {
+    const response: AxiosResponse = await axios.post(apiUrl, params, {
+      headers: headers || {},
+    });
+    console.log("response:", response);
 
-It can be improved as the errors can be more specific.
+    return response.data;
+  } catch (error: any) {
+    return handleRequest(error.response);
+  }
+};
 
+export const putFetch = async (
+  url: string,
+  params?: any,
+  headers?: any
+): Promise<AxiosResponse> => {
+  const apiUrl = `${DEFAULT_URL}${url}`;
+  try {
+    const response: AxiosResponse = await axios.put(apiUrl, params, {
+      headers: headers || {},
+    });
+    console.log(response);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    return handleRequest(error.response);
+  }
+};
+```
+This would be the use of these functions, to make it more generic
 
-# 6️⃣ How are we goint to make the call to the servi endpoints❓ 🤔
+Basically the functions will obtain the endpoint, a body (if necessary) and a header, which can be the ones mentioned above.
+```
+  // GET CASE
+  const handleGet = async () => {
+    const urlApiGet = `/posts?postId=1`;
+    const data = await getFetch(urlApiGet, {}, headWithToken);
+    console.log(data);
+  };
 
-We will use these functions:
-![Captura desde 2024-01-29 19-30-44](https://github.com/Jufaa/axios-spikee/assets/97070491/33d25d92-fae8-4464-970e-882a95809152)
+  // POST CASE
+  const handlePost = async (body: TypeReviews) => {
+    const urlApiPost = "/reviews/user";
 
-![Captura desde 2024-01-29 19-20-59](https://github.com/Jufaa/axios-spikee/assets/97070491/d8863058-516c-47ed-96eb-d378e9eaccfb)
+    const data = await postFetch(urlApiPost, body, headWithToken);
+    console.log(data);
+  };
 
-It will have some parameters, endpoint, method to use, if you are going to wanto to use the token, and if the endpoint requires a body, it can be sent to it.
+  // PUT CASE
+  const handlePut = async (body: TypeDataPut) => {
+    const urlPut = "/orders/inbox";
+
+    const data = await putFetch(urlPut, body, headWithToken);
+    console.log(data);
+  };
+
+```
+What type of headers can we use?
+```
+  "Content-Type": "application/json",
+  Accept: "*/*",
+  Authorization: `Bearer ${token}`,
+};
+
+export const headWithoutToken = {
+  "Content-Type": "application/json",
+  Accept: "*/*",
+};
+
+export const headWithTokenFormData = {
+  "Content-Type": "multipart/form-data",
+  Accept: "*/*",
+  Authorization: `Bearer ${token}`,
+};
+```
+
 <br/>
-Example:
 
-
-![Captura desde 2024-01-29 19-21-33](https://github.com/Jufaa/axios-spikee/assets/97070491/c24c4f27-2945-429f-ad22-2ccb603364a0)
-
-
-Why do i use server in FetcherWithApiServi? Since if we do not use a use server, we have complications with cors, and the endpoints since the process.env would come as undefined if we do not use this, a use server is that the code that is in the file will be executed on the server side.
+Why do i use server in restTemplate.ts? Since if we do not use a use server, we have complications with cors, and the endpoints since the process.env would come as undefined if we do not use this, a use server is that the code that is in the file will be executed on the server side.
 
 Why do we use this way? If you review v1, the services and API part in the files is 90 percent practically the same, and if we take this on a large scale it is detrimental, since it is complicated to maintain, that is why we created this way, since it is going to be easier in the long term.
