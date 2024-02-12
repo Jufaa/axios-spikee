@@ -1,3 +1,4 @@
+import { iRestTemplate } from "@/interface/IRestTemplate";
 import { Environment } from "@/model/Environment";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
@@ -20,13 +21,10 @@ const handleRequest = (response: AxiosResponse<any>) => {
   }
 };
 
-export class RestTemplate {
-  private axiosInstance: AxiosInstance;
-
-  constructor(environment: typeof Environment) {
-    this.axiosInstance = axios.create({
-      baseURL: environment.MAIN_SERVICE,
-    });
+export class RestTemplate implements iRestTemplate {
+  constructor(environment: Environment) {
+    const url = environment.toString();
+    axios.defaults.baseURL = url;
   }
 
   async get<T>(url: string, params?: any, headers?: any): Promise<T> {
