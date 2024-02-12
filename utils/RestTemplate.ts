@@ -1,5 +1,5 @@
-import { Environment } from "@/model/Environment";
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import {iRestTemplate} from "@/interface/IRestTemplate";
 
 const handleRequest = (response: AxiosResponse<any>) => {
   try {
@@ -20,13 +20,11 @@ const handleRequest = (response: AxiosResponse<any>) => {
   }
 };
 
-export class RestTemplate {
-  private axiosInstance: AxiosInstance;
+export class RestTemplate implements iRestTemplate{
 
-  constructor(environment: typeof Environment) {
-    this.axiosInstance = axios.create({
-      baseURL: environment.MAIN_SERVICE,
-    });
+  // TODO: Replace String with Environment, in order to encapsulate the environment (currently we're supporting any string as environment, that's not OK)
+  constructor(environment: string) {
+    axios.defaults.baseURL = environment;
   }
 
   async get<T>(url: string, params?: any, headers?: any): Promise<T> {
@@ -34,6 +32,7 @@ export class RestTemplate {
       params,
       headers,
     };
+
     const response: AxiosResponse = await axios.get(url, config);
     return handleRequest(response);
   }
