@@ -29,74 +29,86 @@ Methods offered by axios:
 
 # 5️⃣ How are we going to make the call to the servi endpoints❓ 🤔
 
-We will use these functions / methods:
+We will use these interface
 
 ```
-export const postFetch = async (
-  url: string,
-  params?: any,
-  headers?: any
-): Promise<any> => {
-  const apiUrl = `${DEFAULT_URL}${url}`;
+export interface iRestTemplate {
+  get<T>(url: string, params?: any, headers?: any): Promise<T>;
+  post<T>(url: string, body?: any, headers?: any): Promise<T>;
+  put<T>(url: string, body?: any, headers?: any): Promise<T>;
+}
 
-  try {
-    const response: AxiosResponse = await axios.post(apiUrl, params, {
-      headers: headers || {},
-    });
-    console.log("response:", response);
+```
+And this environment, what that cannot be changed
+```
+export const Environment = {
+  MAIN_SERVICE: `http://${process.env.NEXT_PUBLIC_V2_MAIN_SERVICE_URL}`,
+  ADS_SERVICE: `http://${process.env.NEXT_PUBLIC_V2_ADS_SERVICE_URL}`,
+} as const;
+```
 
-    return response.data;
-  } catch (error: any) {
-    return handleRequest(error.response);
+And we will use this template that will have the interface mentionen above
+```
+export class RestTemplate implements iRestTemplate{
+
+  // TODO: Replace String with Environment, in order to encapsulate the environment (currently we're supporting any string as environment, that's not OK)
+  constructor(environment: string) {
+    axios.defaults.baseURL = environment;
   }
+
+  async get<T>(url: string, params?: any, headers?: any): Promise<T> {
+    const config: AxiosRequestConfig = {
+      params,
+      headers,
+    };
+
+    const response: AxiosResponse = await axios.get(url, config);
+    return handleRequest(response);
+  }
+
+  async post<T>(url: string, body?: any, headers?: any): Promise<T> {
+    try {
+      const response: AxiosResponse = await axios.post(url, body, {
+        headers: headers || {},
+      });
+
+      return response.data;
+    } catch (error: any) {
+      return handleRequest(error.response);
+    }
+  }
+
+  async put<T>(url: string, body?: any, headers?: any): Promise<T> {
+    try {
+      const response: AxiosResponse = await axios.put(url, body, {
+        headers: headers || {},
+      });
+      return response.data;
+    } catch (error: any) {
+      return handleRequest(error.response);
+    }
+  }
+}
+
+```
+
+ We going to use this template in the order services section example.
+```
+"use server";
+import { Environment } from "@/model/Environment";
+import { RestTemplate } from "../../utils/RestTemplate";
+import { AuthorizedHeader } from "../../utils/headersList";
+import { TypeDataPut } from "@/types/Order";
+
+const restTemplate = new RestTemplate(Environment.MAIN_SERVICE.toString());
+
+export const ordersInbox = async (body: TypeDataPut) => {
+  return await restTemplate.put("/orders/inbox", body, AuthorizedHeader
+  );
 };
 
-export const putFetch = async (
-  url: string,
-  params?: any,
-  headers?: any
-): Promise<AxiosResponse> => {
-  const apiUrl = `${DEFAULT_URL}${url}`;
-  try {
-    const response: AxiosResponse = await axios.put(apiUrl, params, {
-      headers: headers || {},
-    });
-    console.log(response);
-    return response.data;
-  } catch (error: any) {
-    console.log(error);
-    return handleRequest(error.response);
-  }
-};
 ```
 This would be the use of these functions, to make it more generic.
-
-Basically the functions will obtain the endpoint, a body (if necessary) and a header, which be the types mentioned later
-```
-  // GET CASE
-  const handleGet = async () => {
-    const urlApiGet = `/posts?postId=1`;
-    const data = await getFetch(urlApiGet, {}, headWithToken);
-    console.log(data);
-  };
-
-  // POST CASE
-  const handlePost = async (body: TypeReviews) => {
-    const urlApiPost = "/reviews/user";
-
-    const data = await postFetch(urlApiPost, body, headWithToken);
-    console.log(data);
-  };
-
-  // PUT CASE
-  const handlePut = async (body: TypeDataPut) => {
-    const urlPut = "/orders/inbox";
-
-    const data = await putFetch(urlPut, body, headWithToken);
-    console.log(data);
-  };
-
-```
 What type of headers can we use?
 ```
   "Content-Type": "application/json",
@@ -118,6 +130,6 @@ export const headWithTokenFormData = {
 
 <br/>
 
-Why do i use server in restTemplate.ts? Since if we do not use a use server, we have complications with cors, and the endpoints since the process.env would come as undefined if we do not use this, a use server is that the code that is in the file will be executed on the server side.
+Why will we use interfaces and so on? This is to have a good level of architecture and also much better scalability than in v1. In addition, an interface is used so that there can be no typing errors or data errors since we are under a contract.
 
 Why do we use this way? If you review v1, the services and API part in the files is 90 percent practically the same, and if we take this on a large scale it is detrimental, since it is complicated to maintain, that is why we created this way, since it is going to be easier in the long term.
