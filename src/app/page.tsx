@@ -7,14 +7,13 @@
 
 import React from "react";
 
-import { headWithToken } from "../../utils/headersList";
-import { getPost } from "../services/PostsServices";
-import { TypeReviews } from "../types/Reviews";
-import { reviewsUser } from "../services/ReviewsServices";
-import { TypeDataPut } from "../types/Order";
+import { getPost } from "@/services/PostsServices";
+import { TypeReviews } from "@/types/Reviews";
+import { reviewsUser } from "@/services/ReviewsServices";
+import { TypeDataPut } from "@/types/Order";
 import { ordersInbox } from "@/services/OrdersServices";
 
-// This types are the ones that the you will be using as the body
+// These types are the ones that you will be using as the body
 
 const Page = () => {
   // GET CASE
